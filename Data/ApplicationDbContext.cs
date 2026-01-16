@@ -1,0 +1,18 @@
+﻿using CrazyCloset.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace CrazyCloset.Data
+{
+    public class ApplicationDbContext : IdentityDbContext
+    {
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
+
+        public DbSet<ClothesItem> ClothesItems { get; set; }
+        public DbSet<ShoesItem> ShoesItems { get; set; }
+        public DbSet<AccessoriesItem> AccessoriesItems { get; set; }
+    }
+}
