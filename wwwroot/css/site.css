@@ -18,5 +18,68 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-top: 20px;
+  background-image: url("/items/Design_Images/white_fabric.jpg");
+}
+
+.background{
+    background-color: whitesmoke;
+    padding: 30px;
+    margin-top: 35px;
+}
+
+.itempics {
+    width: 380px;
+    height: 380px;
+    object-fit: scale-down;
+    object-position: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.genericbutton {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 30px;
+    margin-left: 45%;
+    padding: 10px 30px;
+    background-color: #CABA9C;
+    opacity: 0.9;
+}
+
+.display-4{
+    font-family: Arial, Helvetica, sans-serif;
+    font: italic 200;
+    color: whitesmoke;
+}
+
+#forNewItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    padding: 5px;
+    background-color: #9E9A9A;
+    position: fixed;
+    z-index: 1000;
+    top: 10px;
+    left: 10px;
+    border-block-color: white;
+    border-block-end-style: solid;
+}
+
+#forNewItemOverlay {
+    padding: 15px;
+    background-color: #CABA9C;
+    font-family: Arial, Helvetica, sans-serif;
+    z-index: 1000;
+    width: 550px;
+    height: 360px;
+    overflow: auto;
+    font-weight: 550;
+}
+
+.in{
+    width: 85%;
 }

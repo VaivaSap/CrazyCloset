@@ -10,5 +10,9 @@ namespace CrazyCloset.Repositories
         Task<List<ShoesItem>> GetAllShoesAsync();
         Task<AccessoriesItem> GetAccessoriesByIdAsync(long id);
         Task<AccessoriesItem> GetAccessoriesByIdAsync();
+
+        Task<ClothesItem> AddClothesItem(long id);
+        Task<ClothesItem> SaveClothesItem(long id);
+        Task<ClothesItem> LoadClothesItem(long id);
     }
 }
