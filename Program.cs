@@ -32,9 +32,6 @@ else
 
 app.UseHttpsRedirection();
 
-var testPath = @"D:\Desktop\crazycloset_items\1_TShirt_Sport_Blue.jpg";
-Console.WriteLine($"File exists: {System.IO.File.Exists(testPath)}");
-
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(@"D:\Desktop\crazycloset_items"),

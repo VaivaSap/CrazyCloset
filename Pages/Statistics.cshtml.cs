@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CrazyCloset.Pages
 {
-    public class PrivacyModel : PageModel
+    public class PatternsModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<PatternsModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public PatternsModel(ILogger<PatternsModel> logger)
         {
             _logger = logger;
         }

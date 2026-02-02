@@ -24,9 +24,16 @@ namespace CrazyCloset.Repositories
         { 
             return null;
         }
-        public async Task<AccessoriesItem> GetAccessoriesByIdAsync() 
-        { 
-            return null; 
+        public async Task<AccessoriesItem> GetAccessoriesByIdAsync()
+        {
+            return null;
         }
+
+        public async Task<ClothesItem> AddClothesItem(long id) 
+        { return null; }
+        public async Task<ClothesItem> SaveClothesItem(long id) 
+        { return null; }
+        public async Task<ClothesItem> LoadClothesItem(long id) 
+        { return null; }
     }
 }
