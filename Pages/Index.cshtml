@@ -13,12 +13,12 @@
     </div>
 </div>
 
-<button id="addItemButton" class="genericbutton" onclick="document.getElementById('forNewItem').style.display='flex'">Add New Item</button>
+<button id="addItemButton" class="addItemButton" onclick="document.getElementById('forNewItem').style.display='flex'">Add New Item</button>
 
 <div id="forNewItem">
     <div id="forNewItemOverlay">
         <h2>Add a new item</h2>
-    <form id="newItemForm" method="post">
+        <form id="newItemForm" method="post" enctype="multipart/form-data">
             <label class="lab">Name: </label> <br>
             <input type="text" class="in" name="Name" required><br>
             <label class="lines">Description: </label> <br>
@@ -27,9 +27,21 @@
             <input type="text" class="in" name="Season"><br>
             <label class="lines">Arrived: </label> <br>
             <input type="text" class="in" name="Age"><br>
+
+            <input type="file" name="Picture" accept="image/*" onchange="previewImage(event)"><br>
+            <img id="imagePreview" style="max-width: 150px; display: none;">
             <br>
+         
             <button type="submit">Save</button>
             <button type="button" onclick="document.getElementById('forNewItem').style.display ='none'">Close</button>
     </form>
     </div>
    </div>
+
+<script>
+    function previewImage(event) {
+        const image = document.getElementById('imagePreview');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        image.style.display = 'block';
+    }
+</script>
