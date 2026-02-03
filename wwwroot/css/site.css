@@ -38,11 +38,12 @@ body {
     transition: transform 0.2s;
 }
 
-.genericbutton {
+.addItemButton {
     font-size: 16px;
     font-weight: 500;
-    margin-top: 30px;
-    margin-left: 45%;
+    margin-top: 55px;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
     padding: 10px 30px;
     background-color: #CABA9C;
     opacity: 0.9;
@@ -55,16 +56,17 @@ body {
 }
 
 #forNewItem {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    display: none;
+    margin-top: 15px;
     padding: 5px;
-    background-color: #9E9A9A;
+    background-color: #ff7f50;
     position: fixed;
     z-index: 1000;
-    top: 10px;
-    left: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-block-color: white;
     border-block-end-style: solid;
 }
@@ -75,11 +77,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     z-index: 1000;
     width: 550px;
-    height: 360px;
+    height: auto;
     overflow: auto;
     font-weight: 550;
 }
 
 .in{
-    width: 85%;
+    width: 90%;
 }
