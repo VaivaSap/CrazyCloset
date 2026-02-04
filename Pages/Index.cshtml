@@ -53,12 +53,12 @@
         Model.ClothingPictures.Select(p => "/items/" + p)
     ));
 
-     let startIndex = 0;
+     let startIndex = Math.floor(Math.random() * images.length);
 
     function showImages() {
-    document.getElementById('carouselImage1').src = images[startIndex];
-    document.getElementById('carouselImage2').src = images[startIndex + 1];
-    document.getElementById('carouselImage3').src = images[startIndex + 2];
+    document.getElementById('carouselImage1').src = images[startIndex % images.length];
+    document.getElementById('carouselImage2').src = images[(startIndex + 1) % images.length];
+    document.getElementById('carouselImage3').src = images[(startIndex + 2) % images.length];
     }
 
     
