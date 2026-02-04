@@ -7,9 +7,12 @@
 <div class="text-center">
     <h1 class="display-4">What are you gonna wear today?</h1>
     <div class="background">
-        <img src="/items/1_TShirt_Sport_Blue.jpg" class="itempics"/>
-        <img src="/items/Dark_winter_jacket.jpg" class="itempics"/>
-        <img src="/items/Fabricair_backpack.jpg" class="itempics" />
+        <button onclick="previousImage()">◀</button>
+            <img id="carouselImage1" class="itempics" />
+            <img id="carouselImage2" class="itempics" />
+            <img id="carouselImage3" class="itempics" />
+        <button onclick="nextImage()">▶</button>
+        <p id="imageCounter"></p>
     </div>
 </div>
 
@@ -44,4 +47,31 @@
         image.src = URL.createObjectURL(event.target.files[0]);
         image.style.display = 'block';
     }
+
+    const images = @Html.Raw(
+    System.Text.Json.JsonSerializer.Serialize(
+        Model.ClothingPictures.Select(p => "/items/" + p)
+    ));
+
+     let startIndex = 0;
+
+    function showImages() {
+    document.getElementById('carouselImage1').src = images[startIndex];
+    document.getElementById('carouselImage2').src = images[startIndex + 1];
+    document.getElementById('carouselImage3').src = images[startIndex + 2];
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', showImages);
+
+    function nextImage() {
+    startIndex = (startIndex + 1) % images.length;
+    showImages();
+    }
+
+    function previousImage() {
+        startIndex = (startIndex - 1 + images.length) % images.length;
+        showImages();
+    }
+
 </script>
