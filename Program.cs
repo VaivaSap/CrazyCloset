@@ -34,7 +34,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(@"D:\Desktop\crazycloset_items"),
+    FileProvider = new PhysicalFileProvider(@"D:\Desktop\crazycloset_items\Items"),
     RequestPath = "/items"
 });
 
