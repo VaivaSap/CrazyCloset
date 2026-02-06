@@ -12,7 +12,5 @@ namespace CrazyCloset.Data
         }
 
         public DbSet<ClothesItem> ClothesItems { get; set; }
-        public DbSet<ShoesItem> ShoesItems { get; set; }
-        public DbSet<AccessoriesItem> AccessoriesItems { get; set; }
     }
 }
