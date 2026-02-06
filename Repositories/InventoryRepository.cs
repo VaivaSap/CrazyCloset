@@ -1,39 +1,47 @@
-﻿using CrazyCloset.Models;
+﻿using CrazyCloset.Data;
+using CrazyCloset.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrazyCloset.Repositories
 {
-    public class InventoryRepository
+    public class InventoryRepository : IInventoryRepository
     {
-        public async Task<ClothesItem> GetClothesByIdAsync(long id) 
+        private ApplicationDbContext _context;
+
+        public InventoryRepository(ApplicationDbContext context)
         {
-            return null;
-        }
-        public async Task<List<ClothesItem>> GetAllClothesAsync() 
-        {
-            return null;
-        }
-        public async Task<ShoesItem> GetShoesByIdAsync(long id) 
-        { 
-            return null;
-        }
-        public async Task<List<ShoesItem>> GetAllShoesAsync() 
-        { 
-            return null;
-        }
-        public async Task<AccessoriesItem> GetAccessoriesByIdAsync(long id) 
-        { 
-            return null;
-        }
-        public async Task<AccessoriesItem> GetAccessoriesByIdAsync()
-        {
-            return null;
+            _context = context;
         }
 
-        public async Task<ClothesItem> AddClothesItem(long id) 
-        { return null; }
-        public async Task<ClothesItem> SaveClothesItem(long id) 
-        { return null; }
-        public async Task<ClothesItem> LoadClothesItem(long id) 
-        { return null; }
+        public async Task<List<ClothesItem>> GetAllClothesAsync()
+        {
+            return await _context.ClothesItems.ToListAsync();
+        }
+
+        public async Task<ClothesItem> GetClothesItemByIdAsync(int id)
+        {
+            var item = await _context.ClothesItems.FindAsync(id);
+
+            if (item == null) 
+            { 
+               throw new Exception($"Item with id {id} not found.");
+            }
+             
+            return item;
+        }
+
+        public async Task<ClothesItem> AddClothesItem(ClothesItem item) 
+        { 
+            await _context.ClothesItems.AddAsync(item);
+            await _context.SaveChangesAsync();
+            return item;
+        }
+
+        public async Task DeleteClothesItemAsync(int id)
+        {
+            var item = await GetClothesItemByIdAsync(id);
+            _context.Remove(item);  
+            await _context.SaveChangesAsync();
+        }
     }
 }

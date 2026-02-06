@@ -4,6 +4,7 @@ using CrazyCloset.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrazyCloset.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260205093316_ConsolidatingItemsTables")]
+    partial class ConsolidatingItemsTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,11 +33,7 @@ namespace CrazyCloset.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateOnly?>("ArrivedDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
+                    b.Property<string>("Age")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -44,9 +43,6 @@ namespace CrazyCloset.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("LastWornDate")
-                        .HasColumnType("date");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -54,14 +50,8 @@ namespace CrazyCloset.Data.Migrations
                     b.Property<string>("Season")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("WearingCount")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

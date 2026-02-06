@@ -1,24 +1,57 @@
+using CrazyCloset.Data;
+using CrazyCloset.Models;
+using CrazyCloset.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CrazyCloset.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IInventoryService _inventoryService;
 
-        public List<string> ClothingPictures { get; set; }
+        public List<ClothesItem> Items { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public List<ClothesItem> ClothingPictures { get; set; } = new List<ClothesItem>();
+
+        public IndexModel(IInventoryService inventoryService)
         {
-            _logger = logger;
+            _inventoryService = inventoryService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var picsPath = Path.Combine(path, "crazycloset_items", "Items");
+            ClothingPictures = await _inventoryService.GetAllClothesAsync();
+        }
 
-            ClothingPictures = Directory.GetFiles(picsPath).Select(f => Path.GetFileName(f)).ToList();
+        public async Task<IActionResult> OnPostAsync(
+         string Name,
+         string Category,
+         string? Description,
+         string? Season,
+         string? Size,
+         DateOnly? LastWornDate,
+         IFormFile ImageFile)
+        {
+            if (ImageFile == null)
+            {
+                ModelState.AddModelError("", "Please select an image");
+                return Page();
+            }
+
+            var item = new ClothesItem
+            {
+                Name = Name,
+                Description = Description,
+                Season = Season,
+                Category = Category,
+                Size = Size,
+                LastWornDate = LastWornDate
+            };
+
+            await _inventoryService.SaveClothesItem(item, ImageFile);
+
+            return RedirectToPage();
         }
     }
 }
