@@ -18,7 +18,7 @@ namespace CrazyCloset.Repositories
             return await _context.ClothesItems.ToListAsync();
         }
 
-        public async Task<ClothesItem> GetClothesItemByIdAsync(int id)
+        public async Task<ClothesItem> GetClothesItemByIdAsync(long id)
         {
             var item = await _context.ClothesItems.FindAsync(id);
 
@@ -37,7 +37,7 @@ namespace CrazyCloset.Repositories
             return item;
         }
 
-        public async Task DeleteClothesItemAsync(int id)
+        public async Task DeleteClothesItemAsync(long id)
         {
             var item = await GetClothesItemByIdAsync(id);
             _context.Remove(item);  

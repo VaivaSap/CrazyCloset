@@ -13,6 +13,12 @@
 		<img id="carouselImage3" class="itempics" />
 		<button onclick="nextImage()">▶</button>
 		<p id="imageCounter"></p>
+
+		<div class="searchField"> 
+		<input id="search" placeholder="Choose your armour ;)" />
+			<button id="searchButton">⌕</button>
+		</div>
+
 	</div>
 </div>
 
@@ -49,6 +55,7 @@
 				<option value="Outerwear">Outerwear</option>
 				<option value="Footwear">Footwear</option>
 				<option value="Accessories">Accessories</option>
+				<option value="Sport">Sport</option>
 				<option value="Other">Other</option>
 			</select><br>
 
@@ -75,6 +82,13 @@
 	</div>
 </div>
 
+
+<!-- pop up window for search results -->
+<div id="searchResults" style="display: none;">
+	<div id="searchResultsGrid"></div>
+	<button id="closeSearchResults">Close</button>
+</div>
+
 <script>
 	function previewImage(event) {
 		const image = document.getElementById('imagePreview');
@@ -82,35 +96,78 @@
 		image.style.display = 'block';
 	}
 
-	const images = @Html.Raw(
-		System.Text.Json.JsonSerializer.Serialize(Model.ClothingPictures.Select(p => "/items/" + p.FilePath)
-		));
+	const items = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Items));
 
-	let startIndex = Math.floor(Math.random() * images.length);
+	let startIndex = Math.floor(Math.random() * items.length);
 
 	function showImages() {
-		if (images.length === 0)
+		if (items.length === 0)
 		{
-		document.getElementById('carouselImage1').style.display = 'none';
-		return;
+			document.getElementById('carouselImage1').style.display = 'none';
+			return;
 		}
 
-		document.getElementById('carouselImage1').src = images[startIndex % images.length];
-		document.getElementById('carouselImage2').src = images[(startIndex + 1) % images.length];
-		document.getElementById('carouselImage3').src = images[(startIndex + 2) % images.length];
-	}
+	const currentItem = items[startIndex % items.length];
+	const currentItem2 = items[(startIndex + 1) % items.length];
+	const currentItem3 = items[(startIndex + 2) % items.length];
 
+	document.getElementById('carouselImage1').src = "/items/" + currentItem.FilePath;
+	document.getElementById('carouselImage2').src = "/items/" + currentItem2.FilePath;
+	document.getElementById('carouselImage3').src = "/items/" + currentItem3.FilePath;
+	}
 
 	document.addEventListener('DOMContentLoaded', showImages);
 
 	function nextImage() {
-	startIndex = (startIndex + 1) % images.length;
-	showImages();
+		startIndex = (startIndex + 1) % items.length;
+		showImages();
 	}
 
 	function previousImage() {
-		startIndex = (startIndex - 1 + images.length) % images.length;
+		startIndex = (startIndex - 1 + items.length) % items.length;
 		showImages();
 	}
+
+	function searchItems(searchText) {
+		const text = searchText.toLowerCase();
+		return items.filter(i => {
+			const allText = `${i.Name} ${i.Category} ${i.Season} ${i.Description}`.toLowerCase();
+			return allText.includes(text);
+		});
+	}
+
+	function showSearchResults(filtered) {
+		const grid = document.getElementById('searchResultsGrid');
+		grid.innerHTML = '';
+		filtered.forEach(item => {
+			const img = document.createElement('img');
+			img.src = "/items/" + item.FilePath;
+			img._data = item;
+			img.onclick = () => console.log(img._data);
+			grid.appendChild(img);
+		});
+		document.getElementById('searchResults').style.display = 'block';
+	}
+
+	function doSearch() {
+		const value = document.getElementById('search').value;
+		if (value.trim() === '') {
+			document.getElementById('searchResults').style.display = 'none';
+			return;
+		}
+		const filtered = searchItems(value);
+		showSearchResults(filtered);
+	}
+
+	document.getElementById('searchButton').addEventListener('click', doSearch);
+
+	document.getElementById('search').addEventListener('keydown', function(e) {
+		if (e.key === 'Enter') doSearch();
+	});
+
+	document.getElementById('closeSearchResults').addEventListener('click', () => {
+		document.getElementById('searchResults').style.display = 'none';
+		document.getElementById('search').value = '';
+	});
 
 </script>

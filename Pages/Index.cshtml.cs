@@ -10,9 +10,9 @@ namespace CrazyCloset.Pages
     {
         private readonly IInventoryService _inventoryService;
 
-        public List<ClothesItem> Items { get; set; }
+        public List<ClothesItem> Items { get; set; } = new List<ClothesItem>();
 
-        public List<ClothesItem> ClothingPictures { get; set; } = new List<ClothesItem>();
+       public List<ClothesItem> ClothingPictures { get; set; } = new List<ClothesItem>();
 
         public IndexModel(IInventoryService inventoryService)
         {
@@ -21,7 +21,7 @@ namespace CrazyCloset.Pages
 
         public async Task OnGetAsync()
         {
-            ClothingPictures = await _inventoryService.GetAllClothesAsync();
+            Items = await _inventoryService.GetAllClothesAsync();
         }
 
         public async Task<IActionResult> OnPostAsync(
@@ -53,5 +53,16 @@ namespace CrazyCloset.Pages
 
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostDeleteAsync(long id)
+        {
+            await _inventoryService.DeleteClothesItemAsync(id);
+
+            return RedirectToPage();
+        }
+
+        //public async Task<IActionResult> OnPostEditAsync() 
+        //{ 
+        //}
     }
 }
