@@ -15,8 +15,8 @@
 		<p id="imageCounter"></p>
 
 		<div class="searchField"> 
-		<input id="search" placeholder="Choose your armour ;)" /> 
-		<button id="searchButton">🔍</button>
+		<input id="search" placeholder="Choose your armour ;)" />
+			<button id="searchButton">⌕</button>
 		</div>
 
 	</div>
@@ -119,44 +119,53 @@
 	document.addEventListener('DOMContentLoaded', showImages);
 
 	function nextImage() {
-	startIndex = (startIndex + 1) % items.length;
-	showImages();
+		startIndex = (startIndex + 1) % items.length;
+		showImages();
 	}
 
 	function previousImage() {
 		startIndex = (startIndex - 1 + items.length) % items.length;
 		showImages();
 	}
-		function searchItems(searchText) {
-		const text = searchText.toLowerCase();
 
+	function searchItems(searchText) {
+		const text = searchText.toLowerCase();
 		return items.filter(i => {
 			const allText = `${i.Name} ${i.Category} ${i.Season} ${i.Description}`.toLowerCase();
 			return allText.includes(text);
 		});
-
 	}
 
-	document.getElementById('search').addEventListener('input', function() {
-		filteredItems = searchItems(this.value);
-		  const grid = document.getElementById('searchResultsGrid');
-
-		  grid.innerHTML = '';
-
-
-	   filteredItems.forEach(item => {
+	function showSearchResults(filtered) {
+		const grid = document.getElementById('searchResultsGrid');
+		grid.innerHTML = '';
+		filtered.forEach(item => {
 			const img = document.createElement('img');
 			img.src = "/items/" + item.FilePath;
 			img._data = item;
-			img.onclick = () => console.log(img._data); 
+			img.onclick = () => console.log(img._data);
 			grid.appendChild(img);
 		});
+		document.getElementById('searchResults').style.display = 'block';
+	}
 
-		document.getElementById('searchResults').style.display =
-			this.value.trim() === '' ? 'none' : 'block';
+	function doSearch() {
+		const value = document.getElementById('search').value;
+		if (value.trim() === '') {
+			document.getElementById('searchResults').style.display = 'none';
+			return;
+		}
+		const filtered = searchItems(value);
+		showSearchResults(filtered);
+	}
+
+	document.getElementById('searchButton').addEventListener('click', doSearch);
+
+	document.getElementById('search').addEventListener('keydown', function(e) {
+		if (e.key === 'Enter') doSearch();
 	});
 
-		document.getElementById('closeSearchResults').addEventListener('click', () => {
+	document.getElementById('closeSearchResults').addEventListener('click', () => {
 		document.getElementById('searchResults').style.display = 'none';
 		document.getElementById('search').value = '';
 	});

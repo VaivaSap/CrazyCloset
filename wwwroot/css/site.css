@@ -97,23 +97,22 @@ body {
 
 #searchButton {
     position: absolute;
-    right: 5px;
+    right: 1px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
+    outline: none;
     border: none;
     cursor: pointer;
 }
 
 #searchResults {
-    display:none;
-    height: 500px;
-    width: 500px;
+    display: none;
     align-items: center;
     justify-content: center;
     margin-top: 15px;
-    padding: 5px;
-    background-color: #ff7f50;
+    padding: 0 0 10px 0;
+    background-color: #CABA9C;
     position: fixed;
     z-index: 1000;
     top: 50%;
@@ -121,17 +120,29 @@ body {
     transform: translate(-50%, -50%);
     border-block-color: white;
     border-block-end-style: solid;
+    width: 500px;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 #searchResultsGrid {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    padding:10px;
 }
 
-    #searchResultsGrid img {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        cursor: pointer;
-    }
+#searchResultsGrid img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    cursor: pointer;
+    margin: 4px;
+    border: 1px solid white;
+}
+
+#closeSearchResults {
+    display: block;
+    margin: 10px auto 0 auto;
+}
