@@ -85,3 +85,22 @@ body {
 .in{
     width: 90%;
 }
+
+.searchField {
+    position: relative;
+    display: inline-block;
+}
+
+#search {
+    padding-right: 35px; 
+}
+
+#searchButton {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}

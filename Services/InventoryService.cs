@@ -33,5 +33,11 @@ namespace CrazyCloset.Services
             var savedItem = await _inventoryRepository.AddClothesItem(item);
             return savedItem;
         }
+
+
+        public async Task DeleteClothesItemAsync(long id)
+        {
+            await _inventoryRepository.DeleteClothesItemAsync(id);
+        }
     }
 }
