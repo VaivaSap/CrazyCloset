@@ -34,6 +34,18 @@ namespace CrazyCloset.Services
             return savedItem;
         }
 
+        public async Task EditItemAsync(ClothesItem item, IFormFile? imageFile)
+        {
+            if (imageFile != null)
+            {
+                var fileName = $"{DateTime.Now.Ticks}.jpg";
+                var path = Path.Combine(@"D:\Desktop\crazycloset_items", "Items", fileName);
+                await imageFile.CopyToAsync(new FileStream(path, FileMode.Create));
+                item.FilePath = fileName;
+            }
+
+            await _inventoryRepository.EditItemAsync(item);
+        }
 
         public async Task DeleteClothesItemAsync(long id)
         {
