@@ -104,3 +104,34 @@ body {
     border: none;
     cursor: pointer;
 }
+
+#searchResults {
+    display:none;
+    height: 500px;
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 5px;
+    background-color: #ff7f50;
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-block-color: white;
+    border-block-end-style: solid;
+}
+
+#searchResultsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    #searchResultsGrid img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        cursor: pointer;
+    }
