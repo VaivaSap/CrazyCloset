@@ -14,8 +14,8 @@
 		<button onclick="nextImage()">▶</button>
 		<p id="imageCounter"></p>
 
-		<div class="searchField"> 
-		<input id="search" placeholder="Choose your armour ;)" />
+		<div class="searchField">
+			<input id="search" placeholder="Choose your armour ;)" />
 			<button id="searchButton">⌕</button>
 		</div>
 
@@ -45,7 +45,7 @@
 			</select><br>
 
 			<label class="lines">Arrived: </label> <br>
-			<input type="text" class="in" name="ArrivedDate"><br>
+			<input type="date" class="in" name="ArrivedDate"><br>
 
 			<label for="Category" class="lines">Category: </label> <br>
 			<select class="in" name="Category" id="Category">
@@ -82,6 +82,71 @@
 	</div>
 </div>
 
+<div id="forDisplayAndEdit">
+	<div id="forDisplayAndEditOverlay">
+		<h2>Edit or Delete?</h2>
+		<form id="editingItemForm" method="post" enctype="multipart/form-data">
+			<label class="lab">Name: </label> <br>
+			<input type="text" class="in" name="Name" required><br>
+
+			<label class="lines">Description: </label> <br>
+			<input type="text" class="in" name="Description"><br>
+
+			<label for="Season" class="lines">Season: </label> <br>
+			<select class="in" name="Season" id="editSeason">
+				<option value="Undefined"> </option>
+				<option value="Spring">Spring</option>
+				<option value="Summer">Summer</option>
+				<option value="Fall">Fall</option>
+				<option value="Winter">Winter</option>
+				<option value="All Seasons">All Seasons</option>
+			</select><br>
+
+			<label class="lines">Arrived: </label> <br>
+			<input type="date" class="in" name="ArrivedDate"><br>
+
+			<label for="Category" class="lines">Category: </label> <br>
+			<select class="in" name="Category" id="editCategory">
+				<option value="Undefined"> </option>
+				<option value="Tops">Tops</option>
+				<option value="Bottoms">Bottoms</option>
+				<option value="Outerwear">Outerwear</option>
+				<option value="Footwear">Footwear</option>
+				<option value="Accessories">Accessories</option>
+				<option value="Sport">Sport</option>
+				<option value="Other">Other</option>
+			</select><br>
+
+			<label class="lines">Size: </label> <br>
+			<select class="in" name="Size" id="editSize">
+				<option value="Undefined"> </option>
+				<option value="XXS">XXS</option>
+				<option value="XS">XS</option>
+				<option value="S">S</option>
+				<option value="M">M</option>
+				<option value="L">L</option>
+				<option value="XL">XL</option>
+			</select>
+			<br>
+			<br>
+			<input type="file" name="ImageFile" accept="image/*" onchange="previewEditImage(event)"><br>
+			<img id="editImagePreview" style="max-width: 150px; display: none;">
+			<img id="currentItemImage" style="max-width: 150px; height: auto; margin: 5px 2px" />
+			<input type="hidden" id="editItemId" name="Id" />
+		</form>
+
+
+		<form id="deleteItemForm" method="post">
+			<input type="hidden" id="deleteItemId" name="id" />
+		</form>
+
+		<div style="display: flex; gap: 8px">
+			<button type="submit" form="editingItemForm" asp-page-handler="Edit">Save</button>
+			<button type="button" onclick="document.getElementById('forDisplayAndEdit').style.display='none'">Close</button>
+			<button type="submit" form="deleteItemForm" asp-page-handler="Delete" onclick="return confirm('You are deleting { } item. Are you sure?')">Delete</button>
+		</div>
+	</div>
+</div>
 
 <!-- pop up window for search results -->
 <div id="searchResults" style="display: none;">
@@ -96,6 +161,11 @@
 		image.style.display = 'block';
 	}
 
+		function previewEditImage(event) {
+		const image = document.getElementById('editImagePreview');
+		image.src = URL.createObjectURL(event.target.files[0]);
+		image.style.display = 'block';
+	}
 	const items = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Items));
 
 	let startIndex = Math.floor(Math.random() * items.length);
@@ -114,6 +184,12 @@
 	document.getElementById('carouselImage1').src = "/items/" + currentItem.FilePath;
 	document.getElementById('carouselImage2').src = "/items/" + currentItem2.FilePath;
 	document.getElementById('carouselImage3').src = "/items/" + currentItem3.FilePath;
+
+
+	// gettingthe editing form
+	document.getElementById('carouselImage1').onclick = () => openItemEditPopup(currentItem);
+	document.getElementById('carouselImage2').onclick = () => openItemEditPopup(currentItem2);
+	document.getElementById('carouselImage3').onclick = () => openItemEditPopup(currentItem3);
 	}
 
 	document.addEventListener('DOMContentLoaded', showImages);
@@ -169,5 +245,23 @@
 		document.getElementById('searchResults').style.display = 'none';
 		document.getElementById('search').value = '';
 	});
+
+
+	function openItemEditPopup(item) {
+		document.getElementById('forDisplayAndEdit').style.display = 'flex';
+
+		document.querySelector('#editingItemForm [name="Name"]').value = item.Name;
+		document.querySelector('#editingItemForm [name="Description"]').value = item.Description;
+		document.querySelector('#editingItemForm [name="Season"]').value = item.Season;
+		document.querySelector('#editingItemForm [name="Category"]').value = item.Category;
+		document.querySelector('#editingItemForm [name="Size"]').value = item.Size;
+		document.querySelector('#editingItemForm [name="ArrivedDate"]').value = item.ArrivedDate;
+
+		document.getElementById("currentItemImage").src = "/items/" + item.FilePath;
+
+		// hidden ones; need for backend that it is known which exactly item to update
+		document.getElementById("editItemId").value = item.Id;
+		document.getElementById("deleteItemId").value = item.Id;
+	}
 
 </script>

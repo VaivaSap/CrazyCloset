@@ -55,7 +55,7 @@ body {
     color: whitesmoke;
 }
 
-#forNewItem {
+#forNewItem, #forDisplayAndEdit {
     display: none;
     align-items: center;
     justify-content: center;
@@ -71,13 +71,15 @@ body {
     border-block-end-style: solid;
 }
 
-#forNewItemOverlay {
+#forNewItemOverlay,
+#forDisplayAndEditOverlay {
     padding: 15px;
     background-color: #CABA9C;
     font-family: Arial, Helvetica, sans-serif;
     z-index: 1000;
     width: 550px;
     height: auto;
+    max-height: 80vh;
     overflow: auto;
     font-weight: 550;
 }

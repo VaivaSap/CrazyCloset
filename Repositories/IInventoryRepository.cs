@@ -6,8 +6,8 @@ namespace CrazyCloset.Repositories
     {
         Task<List<ClothesItem>> GetAllClothesAsync();
         Task<ClothesItem> AddClothesItem(ClothesItem item);
-
-        Task DeleteClothesItemAsync(long id);
+        Task EditItemAsync(ClothesItem item); 
         Task<ClothesItem> GetClothesItemByIdAsync(long id);
+        Task DeleteClothesItemAsync(long id);
     }
 }
