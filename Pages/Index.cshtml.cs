@@ -1,4 +1,3 @@
-using CrazyCloset.Data;
 using CrazyCloset.Models;
 using CrazyCloset.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +29,7 @@ namespace CrazyCloset.Pages
          string? Description,
          string? Season,
          string? Size,
-         DateOnly? LastWornDate,
+         DateOnly? ArrivedDate,
          IFormFile ImageFile)
         {
             if (ImageFile == null)
@@ -46,7 +45,7 @@ namespace CrazyCloset.Pages
                 Season = Season,
                 Category = Category,
                 Size = Size,
-                LastWornDate = LastWornDate
+                ArrivedDate = ArrivedDate
             };
 
             await _inventoryService.SaveClothesItem(item, ImageFile);
@@ -83,6 +82,17 @@ namespace CrazyCloset.Pages
             };
 
             await _inventoryService.EditItemAsync(item, ImageFile);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostCheckInAsync(long id)
+        {
+            var log = new UseLog
+            {
+                ItemId = id,
+                UsedDate = DateOnly.FromDateTime(DateTime.Today)
+            };
+            await _inventoryService.ItemCheckIn(log);
             return RedirectToPage();
         }
     }
