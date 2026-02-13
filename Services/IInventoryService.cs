@@ -8,5 +8,6 @@ namespace CrazyCloset.Services
         Task<ClothesItem> SaveClothesItem(ClothesItem item, IFormFile imageFile);
         Task EditItemAsync(ClothesItem item, IFormFile? imageFile);
         Task DeleteClothesItemAsync(long id);
+        Task ItemCheckIn(UseLog log);
     }
 }

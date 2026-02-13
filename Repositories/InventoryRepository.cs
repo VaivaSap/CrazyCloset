@@ -64,5 +64,11 @@ namespace CrazyCloset.Repositories
             _context.Remove(item);  
             await _context.SaveChangesAsync();
         }
+
+        public async Task ItemCheckIn(UseLog log)
+        {
+            await _context.UseLogs.AddAsync(log);
+            await _context.SaveChangesAsync();
+        }
     }
 }

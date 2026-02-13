@@ -8,9 +8,18 @@
 	<h1 class="display-4">What are you gonna wear today?</h1>
 	<div class="background">
 		<button onclick="previousImage()">◀</button>
-		<img id="carouselImage1" class="itempics" />
-		<img id="carouselImage2" class="itempics" />
-		<img id="carouselImage3" class="itempics" />
+		<div class="item-wrapper">
+    <img id="carouselImage1" class="itempics" />
+    <div class="checkin-btn" id="checkInBtn1">✓</div>
+</div>
+<div class="item-wrapper">
+    <img id="carouselImage2" class="itempics" />
+    <div class="checkin-btn" id="checkInBtn2">✓</div>
+</div>
+<div class="item-wrapper">
+    <img id="carouselImage3" class="itempics" />
+    <div class="checkin-btn" id="checkInBtn3">✓</div>
+</div>
 		<button onclick="nextImage()">▶</button>
 		<p id="imageCounter"></p>
 
@@ -148,6 +157,10 @@
 	</div>
 </div>
 
+<form id="checkInForm" method="post" asp-page-handler="CheckIn">
+	<input type="hidden" id="checkInId" name="id" />
+</form>
+
 <!-- pop up window for search results -->
 <div id="searchResults" style="display: none;">
 	<div id="searchResultsGrid"></div>
@@ -190,6 +203,12 @@
 	document.getElementById('carouselImage1').onclick = () => openItemEditPopup(currentItem);
 	document.getElementById('carouselImage2').onclick = () => openItemEditPopup(currentItem2);
 	document.getElementById('carouselImage3').onclick = () => openItemEditPopup(currentItem3);
+
+
+	// check-in also in the carousel
+	document.getElementById('checkInBtn1').onclick = (e) => { e.stopPropagation(); document.getElementById('checkInId').value = currentItem.Id; document.getElementById('checkInForm').submit(); };
+	document.getElementById('checkInBtn2').onclick = (e) => { e.stopPropagation(); document.getElementById('checkInId').value = currentItem2.Id; document.getElementById('checkInForm').submit(); };
+	document.getElementById('checkInBtn3').onclick = (e) => { e.stopPropagation(); document.getElementById('checkInId').value = currentItem3.Id; document.getElementById('checkInForm').submit(); };
 	}
 
 	document.addEventListener('DOMContentLoaded', showImages);
@@ -216,11 +235,26 @@
 		const grid = document.getElementById('searchResultsGrid');
 		grid.innerHTML = '';
 		filtered.forEach(item => {
+			const wrapper = document.createElement('div');
+			wrapper.className = 'item-wrapper';
+
 			const img = document.createElement('img');
 			img.src = "/items/" + item.FilePath;
 			img._data = item;
-			img.onclick = () => console.log(img._data);
-			grid.appendChild(img);
+			img.onclick = () => openItemEditPopup(item);
+
+
+			wrapper.appendChild(img);
+				const checkIn = document.createElement('div');
+				checkIn.className = 'checkin-btn';
+				checkIn.textContent = '✓';
+				checkIn.onclick = (e) => {
+				e.stopPropagation();
+				document.getElementById('checkInId').value = item.Id;
+				document.getElementById('checkInForm').submit();
+	};
+	wrapper.appendChild(checkIn);
+			grid.appendChild(wrapper);
 		});
 		document.getElementById('searchResults').style.display = 'block';
 	}

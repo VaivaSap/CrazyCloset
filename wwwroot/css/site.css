@@ -148,3 +148,30 @@ body {
     display: block;
     margin: 10px auto 0 auto;
 }
+
+.item-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.checkin-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.item-wrapper:hover .checkin-btn {
+    opacity: 1;
+}

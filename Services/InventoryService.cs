@@ -51,5 +51,10 @@ namespace CrazyCloset.Services
         {
             await _inventoryRepository.DeleteClothesItemAsync(id);
         }
+
+        public async Task ItemCheckIn(UseLog log) 
+        { 
+            await _inventoryRepository.ItemCheckIn(log); 
+        }
     }
 }
