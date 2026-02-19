@@ -9,5 +9,7 @@ namespace CrazyCloset.Services
         Task EditItemAsync(ClothesItem item, IFormFile? imageFile);
         Task DeleteClothesItemAsync(long id);
         Task ItemCheckIn(UseLog log);
+        Task<List<UseLogDto>> GetUseLogsAsync();
+        Task<List<UseLogDto>> GetAllLogsByIdAsync(long id);
     }
 }
