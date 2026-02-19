@@ -17,6 +17,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+//builder.Services.AddRazorPages(options =>
+//{
+//    options.Conventions.AllowAnonymousToFolder("/");
+//});
+
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 var app = builder.Build();

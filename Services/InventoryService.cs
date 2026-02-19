@@ -1,5 +1,8 @@
 ﻿using CrazyCloset.Models;
 using CrazyCloset.Repositories;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 
 namespace CrazyCloset.Services
 {
@@ -20,13 +23,31 @@ namespace CrazyCloset.Services
             return allItems;
         }
 
+        public async Task<List<UseLogDto>> GetUseLogsAsync()
+        {
+            var allLogs = await _inventoryRepository.GetUseLogsAsync();
+            return allLogs;
+        }
+
+        public async Task<List<UseLogDto>> GetAllLogsByIdAsync(long id)
+        {
+            var itemUseLogs = await _inventoryRepository.GetAllLogsByIdAsync(id);
+            return itemUseLogs;
+        }
+
         public async Task<ClothesItem> SaveClothesItem(ClothesItem item, IFormFile imageFile)
         {
             var fileName = $"{DateTime.Now.Ticks}.jpg"; 
 
             var path = Path.Combine(@"D:\Desktop\crazycloset_items","Items", fileName);
 
-            await imageFile.CopyToAsync(new FileStream(path, FileMode.Create));
+            using var image = await Image.LoadAsync(imageFile.OpenReadStream());
+            image.Mutate(x => x.Resize(new ResizeOptions
+            {
+                Size = new Size(800, 800),
+                Mode = ResizeMode.Max
+            }));
+            await image.SaveAsJpegAsync(path, new JpegEncoder { Quality = 80 });
 
             item.FilePath = fileName;
 
@@ -40,7 +61,15 @@ namespace CrazyCloset.Services
             {
                 var fileName = $"{DateTime.Now.Ticks}.jpg";
                 var path = Path.Combine(@"D:\Desktop\crazycloset_items", "Items", fileName);
-                await imageFile.CopyToAsync(new FileStream(path, FileMode.Create));
+
+                using var image = await Image.LoadAsync(imageFile.OpenReadStream());
+                image.Mutate(x => x.Resize(new ResizeOptions
+                {
+                    Size = new Size(800, 800),
+                    Mode = ResizeMode.Max
+                }));
+                await image.SaveAsJpegAsync(path, new JpegEncoder { Quality = 80 });
+
                 item.FilePath = fileName;
             }
 

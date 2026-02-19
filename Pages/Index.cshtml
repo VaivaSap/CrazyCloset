@@ -5,6 +5,9 @@
 }
 
 <div class="text-center">
+
+	<div id="carouselToolTip" style="position: absolute; display: none; background: #CABA9C; border: 1px solid #ccc; padding: 10px; border-radius: 2px; pointer-events: none; z-index: 1000;"></div>
+
 	<h1 class="display-4">What are you gonna wear today?</h1>
 	<div class="background">
 		<button onclick="previousImage()">◀</button>
@@ -61,6 +64,7 @@
 				<option value="Undefined"> </option>
 				<option value="Tops">Tops</option>
 				<option value="Bottoms">Bottoms</option>
+				<option value="Dress">Dress</option>
 				<option value="Outerwear">Outerwear</option>
 				<option value="Footwear">Footwear</option>
 				<option value="Accessories">Accessories</option>
@@ -119,6 +123,7 @@
 				<option value="Undefined"> </option>
 				<option value="Tops">Tops</option>
 				<option value="Bottoms">Bottoms</option>
+				<option value="Dress">Dress</option>
 				<option value="Outerwear">Outerwear</option>
 				<option value="Footwear">Footwear</option>
 				<option value="Accessories">Accessories</option>
@@ -204,6 +209,15 @@
 	document.getElementById('carouselImage2').onclick = () => openItemEditPopup(currentItem2);
 	document.getElementById('carouselImage3').onclick = () => openItemEditPopup(currentItem3);
 
+
+	document.getElementById('carouselImage1').onmouseenter = (e) => showTooltip(e, currentItem.Name);
+	document.getElementById('carouselImage1').onmouseleave = hideTooltip;
+
+	document.getElementById('carouselImage2').onmouseenter = (e) => showTooltip(e, currentItem2.Name);
+	document.getElementById('carouselImage2').onmouseleave = hideTooltip;
+
+	document.getElementById('carouselImage3').onmouseenter = (e) => showTooltip(e, currentItem3.Name);
+	document.getElementById('carouselImage3').onmouseleave = hideTooltip;
 
 	// check-in also in the carousel
 	document.getElementById('checkInBtn1').onclick = (e) => { e.stopPropagation(); document.getElementById('checkInId').value = currentItem.Id; document.getElementById('checkInForm').submit(); };
@@ -296,6 +310,18 @@
 		// hidden ones; need for backend that it is known which exactly item to update
 		document.getElementById("editItemId").value = item.Id;
 		document.getElementById("deleteItemId").value = item.Id;
+	}
+
+	function showTooltip(event, name) {
+		const tooltip = document.getElementById('carouselToolTip');
+		tooltip.textContent = name;
+		tooltip.style.display = 'block';
+		tooltip.style.left = event.pageX + 10 + 'px';
+		tooltip.style.top = event.pageY + 10 + 'px';
+	}
+
+	function hideTooltip() {
+		document.getElementById('carouselToolTip').style.display = 'none';
 	}
 
 </script>

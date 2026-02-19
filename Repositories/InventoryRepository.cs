@@ -6,7 +6,7 @@ namespace CrazyCloset.Repositories
 {
     public class InventoryRepository : IInventoryRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public InventoryRepository(ApplicationDbContext context)
         {
@@ -16,6 +16,17 @@ namespace CrazyCloset.Repositories
         public async Task<List<ClothesItem>> GetAllClothesAsync()
         {
             return await _context.ClothesItems.ToListAsync();
+        }
+
+        public async Task<List<UseLogDto>> GetUseLogsAsync()
+        {
+            return await _context.UseLogs.Include(u => u.Item).Select(u => new UseLogDto
+                {
+                    UseLogId = u.UseLogId,
+                    UsedDate = u.UsedDate,
+                    ItemName = u.Item.Name,
+                    FilePath = u.Item.FilePath
+            }).ToListAsync();
         }
 
         public async Task<ClothesItem> GetClothesItemByIdAsync(long id)
@@ -29,6 +40,19 @@ namespace CrazyCloset.Repositories
              
             return item;
         }
+
+        public async Task<List<UseLogDto>> GetAllLogsByIdAsync(long id)
+        {
+            var itemUseLogs = await _context.UseLogs.Where(u => u.ItemId == id).Select(u => new UseLogDto
+            {
+                UseLogId = u.UseLogId,
+                UsedDate = u.UsedDate,
+                ItemName = u.Item.Name
+            }).ToListAsync();
+
+            return itemUseLogs;
+        }
+
 
         public async Task<ClothesItem> AddClothesItem(ClothesItem item) 
         { 

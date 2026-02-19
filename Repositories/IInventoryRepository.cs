@@ -10,5 +10,7 @@ namespace CrazyCloset.Repositories
         Task<ClothesItem> GetClothesItemByIdAsync(long id);
         Task DeleteClothesItemAsync(long id);
         Task ItemCheckIn(UseLog log); 
+        Task<List<UseLogDto>> GetUseLogsAsync();
+        Task<List<UseLogDto>> GetAllLogsByIdAsync(long id);
     }
 }
