@@ -12,17 +12,17 @@
 	<div class="background">
 		<button onclick="previousImage()">◀</button>
 		<div class="item-wrapper">
-    <img id="carouselImage1" class="itempics" />
-    <div class="checkin-btn" id="checkInBtn1">✓</div>
-</div>
-<div class="item-wrapper">
-    <img id="carouselImage2" class="itempics" />
-    <div class="checkin-btn" id="checkInBtn2">✓</div>
-</div>
-<div class="item-wrapper">
-    <img id="carouselImage3" class="itempics" />
-    <div class="checkin-btn" id="checkInBtn3">✓</div>
-</div>
+			<img id="carouselImage1" class="itempics" />
+			<div class="checkin-btn" id="checkInBtn1">✓</div>
+		</div>
+		<div class="item-wrapper">
+			<img id="carouselImage2" class="itempics" />
+			<div class="checkin-btn" id="checkInBtn2">✓</div>
+		</div>
+		<div class="item-wrapper">
+			<img id="carouselImage3" class="itempics" />
+			<div class="checkin-btn" id="checkInBtn3">✓</div>
+		</div>
 		<button onclick="nextImage()">▶</button>
 		<p id="imageCounter"></p>
 
@@ -267,12 +267,22 @@
 				document.getElementById('checkInId').value = item.Id;
 				document.getElementById('checkInForm').submit();
 	};
-	wrapper.appendChild(checkIn);
+		wrapper.appendChild(checkIn);
+
+		const heatmapBtn = document.createElement('div');
+		heatmapBtn.textContent = '🔥';
+		heatmapBtn.onclick = (e) => {
+			e.stopPropagation();
+			window.location.href = '/ItemHeatmap/' + item.Id;
+		};
+		wrapper.appendChild(heatmapBtn);
+
 			grid.appendChild(wrapper);
 		});
 		document.getElementById('searchResults').style.display = 'block';
 	}
 
+	
 	function doSearch() {
 		const value = document.getElementById('search').value;
 		if (value.trim() === '') {
