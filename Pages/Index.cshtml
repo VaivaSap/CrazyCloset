@@ -157,7 +157,7 @@
 		<div style="display: flex; gap: 8px">
 			<button type="submit" form="editingItemForm" asp-page-handler="Edit">Save</button>
 			<button type="button" onclick="document.getElementById('forDisplayAndEdit').style.display='none'">Close</button>
-			<button type="submit" form="deleteItemForm" asp-page-handler="Delete" onclick="return confirm('You are deleting { } item. Are you sure?')">Delete</button>
+			<button type="submit" form="deleteItemForm" asp-page-handler="Delete" onclick="return confirm('You are deleting item. Are you sure?')">Delete</button>
 		</div>
 	</div>
 </div>
@@ -251,7 +251,6 @@
 		filtered.forEach(item => {
 			const wrapper = document.createElement('div');
 			wrapper.className = 'item-wrapper';
-
 			const img = document.createElement('img');
 			img.src = "/items/" + item.FilePath;
 			img._data = item;
@@ -259,13 +258,13 @@
 
 
 			wrapper.appendChild(img);
-				const checkIn = document.createElement('div');
-				checkIn.className = 'checkin-btn';
-				checkIn.textContent = '✓';
-				checkIn.onclick = (e) => {
-				e.stopPropagation();
-				document.getElementById('checkInId').value = item.Id;
-				document.getElementById('checkInForm').submit();
+			const checkIn = document.createElement('div');
+			checkIn.className = 'checkin-btn';
+			checkIn.textContent = '✓';
+			checkIn.onclick = (e) => {
+			e.stopPropagation();
+			document.getElementById('checkInId').value = item.Id;
+			document.getElementById('checkInForm').submit();
 	};
 		wrapper.appendChild(checkIn);
 
