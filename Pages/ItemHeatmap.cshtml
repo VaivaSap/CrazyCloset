@@ -18,6 +18,7 @@
 <script>
     const logs = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ItemLogs));
     const usedDates = new Set(logs.map(l => l.UsedDate));
+    document.getElementById('wornCount').textContent = `Worn ${logs.length} times total`;
     let currentYear = new Date().getFullYear();
 
     function renderHeatmap(year) {
