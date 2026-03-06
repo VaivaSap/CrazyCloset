@@ -17,9 +17,15 @@
 
 <h2 id="wornCount" style="color: saddlebrown; font-size: small; margin: 20px 0;"></h2>
 <h2 id="lastUsed" style="color: saddlebrown; font-size: small; margin: 10px 0;"></h2>
+<h2 style="color: saddlebrown; font-size: small; margin: 40px 0 20px 0;">Most popular items</h2>
+<div id="mostPopular" style="display:flex; flex-direction:row; gap:20px; "></div>
+<h2 style="color: saddlebrown; font-size: small;">Least popular items</h2>
+<div id="leastPopular" style="display:flex; flex-direction:row; gap:20px; color: saddlebrown; font-size: small; margin: 10px 0;"></div>
 
 <script>
     const logs = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ItemLogs));
+    const mostPopular = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MostPopular));
+    const leastPopular = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.LeastPopular));
 </script>
 
 <script src="~/js/itemheatmap.js"></script>

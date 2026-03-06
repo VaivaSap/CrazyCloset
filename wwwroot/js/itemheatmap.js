@@ -11,6 +11,21 @@ if (logs.length > 0) {
 
 let currentYear = new Date().getFullYear();
 
+mostPopular.forEach(item => {
+    const div = document.createElement('div');
+    div.innerHTML = `<img src="/items/${item.FilePath}" style="width:70px; height:70px; object-fit:cover;">
+                     <p style="color:saddlebrown">${item.WearCount}</p>`;
+    document.getElementById('mostPopular').appendChild(div);
+});
+
+leastPopular.forEach(item => {
+    const div = document.createElement('div');
+    div.innerHTML = `<img src="/items/${item.FilePath}" style="width:70px; height:70px; object-fit:cover;">
+                     <p style="color:saddlebrown">${item.WearCount}</p>`;
+    document.getElementById('leastPopular').appendChild(div);
+});
+
+
 function renderHeatmap(year) {
     document.getElementById('yearLabel').textContent = year;
     const container = document.getElementById('heatmap');

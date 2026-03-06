@@ -85,5 +85,11 @@ namespace CrazyCloset.Services
         { 
             await _inventoryRepository.ItemCheckIn(log); 
         }
+
+        public async Task<List<ItemPopularityDto>> GetItemPopularity()
+        {
+            var popularityList = await _inventoryRepository.GetItemPopularity();
+            return popularityList;
+        }
     }
 }

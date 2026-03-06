@@ -53,6 +53,21 @@ namespace CrazyCloset.Repositories
             return itemUseLogs;
         }
 
+      
+         public async Task<List<ItemPopularityDto>> GetItemPopularity()
+        {
+            var popularityList = await _context.UseLogs
+                .GroupBy(u => new { u.ItemId, u.Item.Name, u.Item.FilePath })
+                .Select(g => new ItemPopularityDto
+                {
+                    ItemId = g.Key.ItemId,
+                    Name = g.Key.Name,
+                    FilePath = g.Key.FilePath,
+                    WearCount = g.Count()
+                }).OrderByDescending(x => x.WearCount).ToListAsync();
+
+            return popularityList;
+        }
 
         public async Task<ClothesItem> AddClothesItem(ClothesItem item) 
         { 
