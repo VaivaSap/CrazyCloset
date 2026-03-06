@@ -11,5 +11,6 @@ namespace CrazyCloset.Services
         Task ItemCheckIn(UseLog log);
         Task<List<UseLogDto>> GetUseLogsAsync();
         Task<List<UseLogDto>> GetAllLogsByIdAsync(long id);
+        Task<List<ItemPopularityDto>> GetItemPopularity();
     }
 }
