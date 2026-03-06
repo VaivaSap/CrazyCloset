@@ -3,7 +3,6 @@ document.getElementById('wornCount').textContent = `Worn ${logs.length} times to
 
 if (logs.length > 0) {
     const lastDate = new Date(logs[logs.length -1].UsedDate);
-    console.log(lastDate);
     const daysAgo = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
     document.getElementById('lastUsed').textContent = `Last used on ${logs[logs.length - 1].UsedDate}/ ${daysAgo} days ago`;
 } else {

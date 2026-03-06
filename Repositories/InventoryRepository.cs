@@ -91,6 +91,9 @@ namespace CrazyCloset.Repositories
 
         public async Task ItemCheckIn(UseLog log)
         {
+            bool loggedToday = await _context.UseLogs.AnyAsync(l => l.ItemId == log.ItemId && l.UsedDate == DateOnly.FromDateTime(DateTime.Now));
+            if (loggedToday) { return;}
+
             await _context.UseLogs.AddAsync(log);
             await _context.SaveChangesAsync();
         }
