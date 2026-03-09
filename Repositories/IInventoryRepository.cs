@@ -6,6 +6,7 @@ namespace CrazyCloset.Repositories
     {
         Task<List<ClothesItem>> GetAllClothesAsync();
         Task<ClothesItem> AddClothesItem(ClothesItem item);
+        Task<List<CategoryDto>> GetItemsByCategoryAsync();
         Task EditItemAsync(ClothesItem item); 
         Task<ClothesItem> GetClothesItemByIdAsync(long id);
         Task DeleteClothesItemAsync(long id);
@@ -13,5 +14,6 @@ namespace CrazyCloset.Repositories
         Task<List<UseLogDto>> GetUseLogsAsync();
         Task<List<UseLogDto>> GetAllLogsByIdAsync(long id);
         Task<List<ItemPopularityDto>> GetItemPopularity();
+      
     }
 }

@@ -1,0 +1,18 @@
+﻿@page
+@model CrazyCloset.Pages.ClosetSummaryModel
+@{
+	ViewData["Title"] = "Summary";
+}
+
+
+<div>
+	<h1>Closet Summary:</h1>
+	@foreach(var category in Model.CategoryCounts)
+	{
+		<div>
+			<h3 style="color: whitesmoke">@category.Category</h3>
+			<p>Count: @category.Count</p>
+		</div>
+	}
+
+</div>

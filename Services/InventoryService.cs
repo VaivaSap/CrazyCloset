@@ -23,6 +23,13 @@ namespace CrazyCloset.Services
             return allItems;
         }
 
+        public async Task<List<CategoryDto>> GetItemsByCategoryAsync()
+        {
+            var categoryCounts = await _inventoryRepository.GetItemsByCategoryAsync();
+            return categoryCounts;  
+        }
+
+
         public async Task<List<UseLogDto>> GetUseLogsAsync()
         {
             var allLogs = await _inventoryRepository.GetUseLogsAsync();
