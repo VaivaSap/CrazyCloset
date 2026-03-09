@@ -108,7 +108,7 @@ body {
     cursor: pointer;
 }
 
-#searchResults {
+#searchResults, #categoryPopup {
     display: none;
     align-items: center;
     justify-content: center;
@@ -127,7 +127,7 @@ body {
     overflow: auto;
 }
 
-#searchResultsGrid {
+#searchResultsGrid, #categoryPopup {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -135,7 +135,7 @@ body {
     padding:10px;
 }
 
-#searchResultsGrid img {
+#searchResultsGrid img, #categoryPopup img {
     width: 120px;
     height: 120px;
     object-fit: cover;

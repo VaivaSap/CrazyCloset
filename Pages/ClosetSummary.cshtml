@@ -9,10 +9,19 @@
 	<h1>Closet Summary:</h1>
 	@foreach(var category in Model.CategoryCounts)
 	{
-		<div>
-			<h3 style="color: whitesmoke">@category.Category</h3>
+		<div >
+			<h3 onclick="showCategoryPopup('@category.Category')" style="color: whitesmoke">@category.Category</h3>
 			<p>Count: @category.Count</p>
 		</div>
 	}
-
 </div>
+
+<div id="categoryPopup" style="display: none;">
+	<div id="categoryGrid"></div>
+	<button onclick="document.getElementById('categoryPopup').style.display='none'">Close</button>
+</div>
+
+<script>
+	const items = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Items));
+</script>
+<script src="~/js/summary.js"></script>
