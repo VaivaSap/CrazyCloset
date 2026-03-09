@@ -18,6 +18,16 @@ namespace CrazyCloset.Repositories
             return await _context.ClothesItems.ToListAsync();
         }
 
+        public async Task<List<CategoryDto>> GetItemsByCategoryAsync()
+        {
+            var categoryCounts = await _context.ClothesItems
+                .GroupBy(i => i.Category)
+                .Select(g => new CategoryDto { Category = g.Key, Count = g.Count() })
+                .ToListAsync();
+
+            return categoryCounts;
+        }
+
         public async Task<List<UseLogDto>> GetUseLogsAsync()
         {
             return await _context.UseLogs.Include(u => u.Item).Select(u => new UseLogDto
@@ -40,6 +50,7 @@ namespace CrazyCloset.Repositories
              
             return item;
         }
+
 
         public async Task<List<UseLogDto>> GetAllLogsByIdAsync(long id)
         {
