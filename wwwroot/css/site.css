@@ -108,10 +108,11 @@ body {
     cursor: pointer;
 }
 
-#searchResults {
+#searchResults, #categoryPopup {
     display: none;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 15px;
     padding: 0 0 10px 0;
     background-color: #CABA9C;
@@ -127,15 +128,15 @@ body {
     overflow: auto;
 }
 
-#searchResultsGrid {
+#searchResultsGrid, #categoryGrid {
     display: flex;
-    justify-content: center;
+     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
     padding:10px;
 }
 
-#searchResultsGrid img {
+#searchResultsGrid img, #categoryGrid img {
     width: 120px;
     height: 120px;
     object-fit: cover;
@@ -170,6 +171,10 @@ body {
     transition: opacity 0.2s;
     cursor: pointer;
     font-size: 20px;
+}
+
+.heatmap-btn {
+    cursor: pointer;
 }
 
 .item-wrapper:hover .checkin-btn {

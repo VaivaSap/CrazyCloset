@@ -35,7 +35,8 @@ namespace CrazyCloset.Repositories
                     UseLogId = u.UseLogId,
                     UsedDate = u.UsedDate,
                     ItemName = u.Item.Name,
-                    FilePath = u.Item.FilePath
+                    FilePath = u.Item.FilePath,
+                    Category = u.Item.Category,
             }).ToListAsync();
         }
 
@@ -58,7 +59,9 @@ namespace CrazyCloset.Repositories
             {
                 UseLogId = u.UseLogId,
                 UsedDate = u.UsedDate,
-                ItemName = u.Item.Name
+                ItemName = u.Item.Name,
+                FilePath = u.Item.FilePath,
+                Category = u.Item.Category
             }).ToListAsync();
 
             return itemUseLogs;

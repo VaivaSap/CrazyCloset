@@ -92,6 +92,7 @@ function showSearchResults(filtered) {
 		wrapper.appendChild(checkIn);
 
 		const heatmapBtn = document.createElement('div');
+		heatmapBtn.className = 'heatmap-btn';
 		heatmapBtn.textContent = '🔥';
 		heatmapBtn.onclick = (e) => {
 			e.stopPropagation();
