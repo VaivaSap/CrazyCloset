@@ -36,5 +36,35 @@ namespace CrazyCloset.Pages
             await _inventoryService.ItemCheckIn(log);
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostEditAsync(
+            long Id,
+            string Name,
+            string? Description,
+            string? Season,
+            string? Size,
+            DateOnly? ArrivedDate,
+            string Category,
+            IFormFile? ImageFile)
+        {
+            var item = new ClothesItem
+            {
+                Id = Id,
+                Name = Name,
+                Description = Description,
+                Season = Season,
+                Category = Category,
+                Size = Size,
+                ArrivedDate = ArrivedDate
+            };
+            await _inventoryService.EditItemAsync(item, ImageFile);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostDeleteAsync(long id)
+        {
+            await _inventoryService.DeleteClothesItemAsync(id);
+            return RedirectToPage();
+        }
     }
 }

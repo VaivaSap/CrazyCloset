@@ -7,5 +7,6 @@
         public string ItemName { get; set; }
 
         public string FilePath { get; set; }
+        public string Category { get; set; }
     }
 }

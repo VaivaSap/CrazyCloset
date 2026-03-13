@@ -6,7 +6,9 @@
 <h1>@ViewData["Title"]</h1>
 
 
-<h3 style="color: whitesmoke">The most popular ones in 2026</h3>
+<h4 style="color: whitesmoke">The most popular ones</h4>
+
+<div id="categoryFilters" style="display: flex; gap: 8px; margin: 3px 0;"></div>
 
 <div class="background">
 	<div id="chartTooltip" style="position: absolute; display: none; background: white; border: 1px solid #ccc; padding: 10px; border-radius: 5px; pointer-events: none; z-index: 1000;">
@@ -14,12 +16,12 @@
 		<p id="tooltipText"></p>
 	</div>
 
-	<canvas id="popularityChart" width="600" height="300">
+	<canvas id="popularityChart" width="600" height="278">
 	</canvas>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<script>
         const logs = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Logs));
 	</script>
-	<script src="~/js/patterns.js"></script>
+	<script src="~/js/patterns.js" asp-append-version="true"></script>
 </div>
