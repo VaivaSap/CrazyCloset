@@ -44,9 +44,10 @@ namespace CrazyCloset.Services
 
         public async Task<ClothesItem> SaveClothesItem(ClothesItem item, IFormFile imageFile)
         {
-            var fileName = $"{DateTime.Now.Ticks}.jpg"; 
+            var fileName = $"{DateTime.Now.Ticks}.jpg";
 
-            var path = Path.Combine(@"D:\Desktop\crazycloset_items","Items", fileName);
+            var itemsPath = Environment.GetEnvironmentVariable("ITEMS_PATH") ?? @"D:\Desktop\crazycloset_items\Items";
+            var path = Path.Combine(itemsPath, fileName);
 
             using var image = await Image.LoadAsync(imageFile.OpenReadStream());
             image.Mutate(x => x.Resize(new ResizeOptions
@@ -67,7 +68,8 @@ namespace CrazyCloset.Services
             if (imageFile != null)
             {
                 var fileName = $"{DateTime.Now.Ticks}.jpg";
-                var path = Path.Combine(@"D:\Desktop\crazycloset_items", "Items", fileName);
+                var itemsPath = Environment.GetEnvironmentVariable("ITEMS_PATH") ?? @"D:\Desktop\crazycloset_items\Items";
+                var path = Path.Combine(itemsPath, fileName);
 
                 using var image = await Image.LoadAsync(imageFile.OpenReadStream());
                 image.Mutate(x => x.Resize(new ResizeOptions
