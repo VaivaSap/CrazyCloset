@@ -27,7 +27,7 @@ var app = builder.Build();
 // Auto-migrate database on startup
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();  
     db.Database.Migrate();
 }
 

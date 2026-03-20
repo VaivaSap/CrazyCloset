@@ -5,13 +5,13 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=Azuololapas001*
+      - SA_PASSWORD=${SA_PASSWORD}
     ports:
       - "1433:1433"
     volumes:
       - sqldata:/var/opt/mssql
     healthcheck:
-      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Azuololapas001* -Q "SELECT 1" -C || exit 1
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${SA_PASSWORD} -Q "SELECT 1" -C || exit 1
       interval: 10s
       retries: 10
       start_period: 30s
@@ -24,7 +24,7 @@ services:
     environment:
       - ITEMS_PATH=/app/items
       - ASPNETCORE_ENVIRONMENT=Development  
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CrazyCloset;User Id=sa;Password=Azuololapas001*;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CrazyCloset;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
     volumes:
       - D:\Desktop\crazycloset_items\items:/app/items
     depends_on:
