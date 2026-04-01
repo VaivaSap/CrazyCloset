@@ -21,6 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IItemEliminationRepository, ItemEliminationRepository>();
+builder.Services.AddScoped<IItemEliminationService, ItemEliminationService>();
 
 var app = builder.Build();
 

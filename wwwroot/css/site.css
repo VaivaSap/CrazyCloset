@@ -180,3 +180,8 @@ body {
 .item-wrapper:hover .checkin-btn {
     opacity: 1;
 }
+
+#eliminationForm {
+    display: flex;
+    flex-direction: column;
+}

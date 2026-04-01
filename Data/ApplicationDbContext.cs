@@ -13,5 +13,7 @@ namespace CrazyCloset.Data
 
         public DbSet<ClothesItem> ClothesItems { get; set; }
         public DbSet<UseLog> UseLogs { get; set; }
+        public DbSet<EliminationLog> EliminationLogs { get; set; }
+        public DbSet<EliminationSchedule> EliminationSchedules { get; set; }
     }
 }

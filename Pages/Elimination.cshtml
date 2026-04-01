@@ -1,0 +1,23 @@
+﻿@page
+@model EliminationModel
+@{
+	ViewData["Title"] = "Wardrobe";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Don't hoard stuff!</h1>
+</div>
+
+<div id="eliminationForm">
+	<form method="post" asp-page-handler="Eliminate">
+		<input type="text" id="itemForElimination" name="itemForElimination" style="width:300px" placeholder="What are you getting rid of?">
+		<button type="submit">Eliminate</button>
+	</form>
+</div>
+
+<ul id="eliminationList">
+	@foreach (var item in Model.EliminationLogs)
+	{
+		<li>@item.ItemName / @item.EliminationDate</li>
+	}
+</ul>
