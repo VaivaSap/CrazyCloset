@@ -16,15 +16,22 @@ namespace CrazyCloset.Services
         {
             return await _itemEliminationRepository.GetEliminationLogsAsync();
         }
+
         public async Task<EliminationLog> AddEliminationLogAsync(EliminationLog log)
         {
             return await _itemEliminationRepository.AddEliminationLogAsync(log);
         }
 
-        public async Task<EliminationSchedule> GetScheduleAsync()
+        public async Task<EliminationSchedule?> GetScheduleAsync()
         {
             return await _itemEliminationRepository.GetScheduleAsync();
         }
+
+        public async Task AddScheduleAsync(EliminationSchedule schedule)
+        {
+            await _itemEliminationRepository.AddScheduleAsync(schedule);
+        }
+
         public async Task UpdateScheduleAsync(EliminationSchedule schedule) 
         { 
             await _itemEliminationRepository.UpdateScheduleAsync(schedule);

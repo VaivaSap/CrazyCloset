@@ -27,9 +27,17 @@ namespace CrazyCloset.Repositories
             return log;
         }
 
-        public async Task<EliminationSchedule> GetScheduleAsync()
-        {
-            return await _context.EliminationSchedules.FirstOrDefaultAsync();
+        public async Task<EliminationSchedule?> GetScheduleAsync()
+        { 
+            var schedule = await _context.EliminationSchedules.FirstOrDefaultAsync(); //paskutine data + 7 dienos (vadinasi, kada kitas elimination deadline yra)
+            return schedule;
+        }
+
+
+        public async Task AddScheduleAsync(EliminationSchedule schedule) 
+        { 
+            _context.EliminationSchedules.Add(schedule);
+             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateScheduleAsync(EliminationSchedule schedule)
@@ -40,7 +48,8 @@ namespace CrazyCloset.Repositories
 
         public async Task<int> GetTotalEliminationsAsync()
         {
-            return await _context.EliminationLogs.CountAsync();
+            var eliminationCount = await _context.EliminationLogs.CountAsync();
+            return eliminationCount;
         }
     }
 }

@@ -8,6 +8,8 @@
 	<h1 class="display-4">Don't hoard stuff!</h1>
 </div>
 
+<h2 style="color: white; margin: 20px 0 20px 0; cursor: pointer;">Scheduled elimination until @Model.EliminationSchedule?.ScheduledEliminationDate</h2>
+
 <div id="eliminationForm">
 	<form method="post" asp-page-handler="Eliminate">
 		<input type="text" id="itemForElimination" name="itemForElimination" style="width:300px" placeholder="What are you getting rid of?">
@@ -15,9 +17,15 @@
 	</form>
 </div>
 
-<ul id="eliminationList">
+<h2 style="color: white; margin: 20px 0 10px 0; cursor: pointer;" onclick="toggleList()">Decluttering in progress...</h2>
+
+<ul id="eliminationList" style="display:none">
 	@foreach (var item in Model.EliminationLogs)
 	{
 		<li>@item.ItemName / @item.EliminationDate</li>
 	}
 </ul>
+
+<h2 style="color: white;">Need to de-clutter already? @(Model.EliminationSchedule == null || Model.EliminationSchedule?.IsActive == true ? "YES!" : "No")</h2>
+
+<script src="~/js/elimination.js"></script>
