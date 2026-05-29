@@ -181,7 +181,12 @@ body {
     opacity: 1;
 }
 
+#eliminationList {
+    max-height: 300px;
+    overflow-y: auto;
+}
 #eliminationForm {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
